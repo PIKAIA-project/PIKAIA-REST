@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Deployment Success!'
+    return 'Deployment Success Check!'
 
 
 if __name__ == '__main__':
