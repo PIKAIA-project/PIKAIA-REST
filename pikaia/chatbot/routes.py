@@ -3,7 +3,6 @@ from pikaia.token import token_required
 from pikaia.models.models import Chat, User
 from flask import request, jsonify
 from pikaia.emotion_analysis import preProcessEmotionModel
-
 import uuid
 import requests
 import numpy as np
