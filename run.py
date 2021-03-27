@@ -1,12 +1,5 @@
-from flask import Flask
+from pikaia import app
 
-app = Flask(__name__)
-
-
-@app.route('/')
-def hello_world():
-    return 'Deployment Success Check!'
-
-
+# Checks if the run.py file has executed directly and not imported
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
