@@ -7,6 +7,8 @@ from keras.models import load_model
 # preparing input to our model
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
+import nltk
+nltk.download('punkt')
 
 
 # Loading the emotion model
