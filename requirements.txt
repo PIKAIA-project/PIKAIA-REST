@@ -8,3 +8,10 @@ Flask_SQLAlchemy==2.5.1
 requests==2.25.1
 PyJWT==2.0.1
 virtualenv==20.4.3
+scipy==1.6.2
+numpy==1.20.1
+nltk==3.5
+pandas==1.2.3
+Keras==2.4.3
+Keras-Preprocessing==1.1.2
+tensorflow-cpu==2.4.1
