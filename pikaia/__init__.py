@@ -3,7 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 import urllib.parse 
 
 # Configure Database URI: 
-params = urllib.parse.quote_plus("DRIVER={SQL Server};SERVER=pikaia.database.windows.net;DATABASE=pikaia;UID=pikaia;PWD=Helloadmin123")
+params = urllib.parse.quote_plus("DRIVER={SQL Server};SERVER=pikaia.database.windows.net;DATABASE=pikaia;UID=pikaia;PWD=Helloadmin123;")
+
 #
 # initialization
 app = Flask(__name__)
