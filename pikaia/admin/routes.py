@@ -3,8 +3,17 @@ from pikaia.token import token_required
 from pikaia.models.models import User
 from flask import request, jsonify
 from werkzeug.security import generate_password_hash
-
 import uuid
+
+
+@app.route('/admin', methods=['POST'])
+def create_admin():
+    data = request.get_json()
+    hashed_password = generate_password_hash(data['password'], method='sha256')
+    new_admin = User(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=False)
+    db.session.add(new_admin)
+    db.session.commit()
+    return jsonify({'message': 'New admin created!'})
 
 
 @app.route('/user', methods=['GET'])
