@@ -39,8 +39,6 @@ stages:
       displayName: 'Use Python $(pythonVersion)'
 
     - script: |
-        apt-get update -y
-        apt-get install -y glibc-doc
         python -m venv antenv
         source antenv/bin/activate
         python -m pip install --upgrade pip
