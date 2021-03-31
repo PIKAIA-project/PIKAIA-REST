@@ -10,10 +10,19 @@ import uuid
 def create_admin():
     data = request.get_json()
     hashed_password = generate_password_hash(data['password'], method='sha256')
-    new_admin = User(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=False)
+    new_admin = User(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=True)
     db.session.add(new_admin)
     db.session.commit()
     return jsonify({'message': 'New admin created!'})
+
+@app.route('/create-user', methods=['POST'])
+def create_NewUser():
+    data = request.get_json()
+    hashed_password = generate_password_hash(data['password'], method='sha256')
+    new_user = User(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=False)
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({'message': 'New User created!'})
 
 
 @app.route('/user', methods=['GET'])
