@@ -18,3 +18,4 @@ tensorflow==2.4.0
 virtualenv==20.4.2
 Werkzeug==1.0.1
 urllib3==1.26.3
+glibc==0.6.1
