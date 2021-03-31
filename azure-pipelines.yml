@@ -39,6 +39,7 @@ stages:
       displayName: 'Use Python $(pythonVersion)'
 
     - script: |
+        apt-get update \ && apt-get install -y --noinstall-recommends build-essential gcc unixobcd-dev
         python -m venv antenv
         source antenv/bin/activate
         python -m pip install --upgrade pip
