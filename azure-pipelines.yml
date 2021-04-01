@@ -39,7 +39,7 @@ stages:
       displayName: 'Use Python $(pythonVersion)'
 
     - script: |
-        cd home/site/wwwroot
+        cd ..
         apt-get update
         apt-get -y install gcc
         apt-get install g++
