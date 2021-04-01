@@ -14,7 +14,7 @@ variables:
   webAppName: 'pikaia'
 
   # Agent VM image name
-  vmImageName: '18.04'
+  vmImageName: 'ubuntu 18.04'
 
   # Environment name
   environmentName: 'pikaia'
