@@ -14,7 +14,7 @@ variables:
   webAppName: 'pikaia'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  vmImageName: '18.04'
 
   # Environment name
   environmentName: 'pikaia'
@@ -37,14 +37,6 @@ stages:
       inputs:
         versionSpec: '$(pythonVersion)'
       displayName: 'Use Python $(pythonVersion)'
-
-    - script: |
-        cd ..
-        apt-get update
-        apt-get -y install gcc
-        apt-get install g++
-        apt-get install python-setuptools
-      displayName: "Install Updates"
 
     - script: |
         python -m venv antenv
