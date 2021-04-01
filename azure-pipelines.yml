@@ -39,13 +39,17 @@ stages:
       displayName: 'Use Python $(pythonVersion)'
 
     - script: |
+        apt-get update
+        apt-get -y install gcc
+        apt-get install g++
+        apt-get install python-setuptools
+      displayName: "Install Updates"
+
+    - script: |
         python -m venv antenv
         source antenv/bin/activate
         python -m pip install --upgrade pip
-        pip install setup
-        apt-get install g++
-        apt-get update
-        apt-get -y install gcc
+        python setup.py install
         pip install -r requirements.txt
       workingDirectory: $(projectRoot)
       displayName: "Install requirements"
