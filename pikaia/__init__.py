@@ -13,7 +13,7 @@ from urllib.parse import quote_plus
 # connect using parsed URL
 # odbc_str = 'DRIVER='+driver+';SERVER='+server+';PORT='+port+';DATABASE='+database+';UID='+username+';PWD='+password+';'
 
-odbc_str = "DRIVER={SQL Server};SERVER=pikaia.database.windows.net;DATABASE=pikaia;UID=pikaia;PWD=Helloadmin123;"
+odbc_str = "DRIVER={/opt/microsoft/msodbcsql17/lib64/libmsodbcsql-17.0.so.1.1};SERVER=pikaia.database.windows.net;DATABASE=pikaia;UID=pikaia;PWD=Helloadmin123;"
 connect_str = 'mssql+pyodbc:///?odbc_connect=' + quote_plus(odbc_str)
 
 # connect with sa url format
