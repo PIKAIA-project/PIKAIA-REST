@@ -44,6 +44,7 @@ stages:
         apt-get install g++
         apt-get install python-setuptools
       displayName: "Install Updates"
+      workingDirectory: "home/site/wwwroot"
 
     - script: |
         python -m venv antenv
