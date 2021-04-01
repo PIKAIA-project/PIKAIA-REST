@@ -2,37 +2,67 @@
 /* CSS Document */
 
 body {
+  font-family: "Varela Round", sans-serif;
   margin: 0;
   width: 100%;
   height: 100vh;
   padding: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   display: flex;
-  background-color: rgb(90, 145, 247);
+  background-color: rgb(190, 167, 243);
   color: white;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
 }
 
-. left > h1 {
-  font-size: 80px;
-  text-align: center;
+.left > h1 {
+  font-size: 60px;
+  text-align: left;
 }
 .left > p {
-  text-align: center;
-  font-size: 25px;
+  margin-top: 1%;
+  text-align: left;
+  font-size: 20px;
 }
 .left > h5 {
-  text-align: center;
-  font-size: 35px;
+  margin-top: -5%;
+  text-align: left;
+  font-size: 25px;
 }
 
 .left {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin-left: 10%;
+  /*position: absolute;*/
+  /*top: 50%;*/
+  /*left: 50%;*/
+  /*transform: translate(-50%, -50%);*/
   width: 50%;
   height: 50vh;
+}
+.right {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+  height: 100vh;
+}
+
+.right > img {
+  width: 500px;
+  height: auto;
+}
+
+.left > img {
+  margin-bottom: 2%;
+  width: 340px;
+  height: auto;
+}
+
+.pipeline {
+  margin-top: -2%;
+}
+
+.azure {
+  margin-top: -5%;
 }
