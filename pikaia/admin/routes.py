@@ -8,20 +8,29 @@ import uuid
 
 @app.route('/admin', methods=['POST'])
 def create_admin():
-    data = request.get_json()
-    hashed_password = generate_password_hash(data['password'], method='sha256')
-    new_admin = User(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=True)
-    db.session.add(new_admin)
-    db.session.commit()
+    try:
+        data = request.get_json()
+        hashed_password = generate_password_hash(data['password'], method='sha256')
+        new_admin = User(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=True)
+        db.session.add(new_admin)
+        db.session.commit()
+    except:
+        return jsonify({'message': 'The name is already taken!'})
+
     return jsonify({'message': 'New admin created!'})
+
 
 @app.route('/create-user', methods=['POST'])
 def create_NewUser():
-    data = request.get_json()
-    hashed_password = generate_password_hash(data['password'], method='sha256')
-    new_user = User(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=False)
-    db.session.add(new_user)
-    db.session.commit()
+    try:
+        data = request.get_json()
+        hashed_password = generate_password_hash(data['password'], method='sha256')
+        new_user = User(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=False)
+        db.session.add(new_user)
+        db.session.commit()
+    except:
+        return jsonify({{'message': 'The name is already taken!'}})
+
     return jsonify({'message': 'New User created!'})
 
 

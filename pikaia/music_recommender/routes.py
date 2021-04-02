@@ -11,10 +11,14 @@ def add_music(current_user):
     if not current_user.admin:
         return jsonify({'message': 'You do not have the permission to perform that function!'})
 
-    data = request.get_json()
-    new_song = Songs(song_name=data['song_name'], song_link=data['song_link'])
-    db.session.add(new_song)
-    db.session.commit()
+    try:
+        data = request.get_json()
+        new_song = Songs(song_name=data['song_name'], song_link=data['song_link'], song_author=data['song_author'], song_cover=data['song_cover'])
+        db.session.add(new_song)
+        db.session.commit()
+    except:
+        return jsonify({'message': 'The song exists!'})
+
     return jsonify({'message': 'New music added!'})
 
 
