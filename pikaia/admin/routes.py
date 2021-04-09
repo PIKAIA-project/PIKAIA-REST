@@ -1,3 +1,5 @@
+from sqlite3 import IntegrityError
+
 from pikaia import app, db
 from pikaia.token import token_required
 from pikaia.models.models import User
@@ -7,31 +9,38 @@ import uuid
 
 
 @app.route('/admin', methods=['POST'])
-def create_admin():
-    try:
-        data = request.get_json()
-        hashed_password = generate_password_hash(data['password'], method='sha256')
-        new_admin = User(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=True)
-        db.session.add(new_admin)
-        db.session.commit()
-    except:
-        return jsonify({'message': 'The name is already taken!'})
+@token_required
+def create_admin(current_user):
+    # allowing only admin user to perform an action
+    if not current_user.admin:
+        return jsonify({'message': 'Cannot perform that function!'})
+
+    data = request.get_json()
+    exists = User.query.filter_by(name=data['name']).first()
+    if exists:
+        return jsonify({'message': 'error, username already exists (%s)' % data['name']})
+
+    hashed_password = generate_password_hash(data['password'], method='sha256')
+    new_admin = User(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=True)
+    db.session.add(new_admin)
+    db.session.commit()
 
     return jsonify({'message': 'New admin created!'})
 
 
 @app.route('/create-user', methods=['POST'])
-def create_NewUser():
-    try:
-        data = request.get_json()
-        hashed_password = generate_password_hash(data['password'], method='sha256')
-        new_user = User(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=False)
-        db.session.add(new_user)
-        db.session.commit()
-    except:
-        return jsonify({{'message': 'The name is already taken!'}})
+def create_newUser():
+    data = request.get_json()
+    exists = User.query.filter_by(name=data['name']).first()
 
-    return jsonify({'message': 'New User created!'})
+    if exists:
+        return jsonify({'message': 'error, username already exists (%s)' % data['name']})
+
+    hashed_password = generate_password_hash(data['password'], method='sha256')
+    new_user = User(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=False)
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({'message': 'New User created!'}), 200
 
 
 @app.route('/user', methods=['GET'])
