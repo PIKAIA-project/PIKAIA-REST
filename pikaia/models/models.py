@@ -1,3 +1,5 @@
+import datetime
+
 from pikaia import db
 
 
@@ -5,19 +7,20 @@ from pikaia import db
 class User(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     public_id = db.Column(db.String(length=50), nullable=False, unique=True)
-    name = db.Column(db.String(length=50), nullable=False , unique=True)
+    name = db.Column(db.String(length=50), nullable=False, unique=True)
     password = db.Column(db.String(length=80))
     admin = db.Column(db.Boolean)
 
 
 # we need a public key for each chat conversation
 class Chat(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
-    public_id = db.Column(db.String(length=50), nullable=False, unique=True)
-    user_sentence = db.Column(db.String(length=200))
-    chatbot_sentence = db.Column(db.String(length=200))
-    user_emotion = db.Column(db.String(length=10))
-    user_id = db.Column(db.Integer())
+    id = db.Column(db.Integer, primary_key=True)
+    public_id = db.Column(db.String(50), unique=True)
+    user_sentence = db.Column(db.String(200))
+    chatbot_sentence = db.Column(db.String(200))
+    user_emotion = db.Column(db.String(10))
+    user_id = db.Column(db.Integer)
+    date_time = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
 
 
 class Emotion(db.Model):

@@ -1,3 +1,5 @@
+from sqlalchemy import func
+
 from pikaia import app, db
 from pikaia.token import token_required
 from pikaia.models.models import Chat, User
@@ -64,15 +66,21 @@ def get_all_chat_conversations(current_user):
 
     conversations = Chat.query.filter_by(user_id=current_user.id).all()
 
+    # Getting the total emotion count
+    emotionData = Chat.query.with_entities(Chat.user_emotion, func.count(Chat.user_emotion)).group_by(
+        Chat.user_emotion).all()
+
     # an array to hold all the dictionaries
     output = []
+    emotionOutput = [emotionData]
     # inserting each to-do into it's own dictionary
     for conversation in conversations:
         conversation_data = {'public_id': conversation.public_id, 'user_sentence': conversation.user_sentence,
                              'chatbot_sentence': conversation.chatbot_sentence,
-                             'user_emotion': conversation.user_emotion}
+                             'user_emotion': conversation.user_emotion, 'date_time': conversation.date_time}
         output.append(conversation_data)
-    return jsonify({'conversations': output})
+
+    return jsonify({'conversations': output, 'emotion_count': emotionOutput})
 
 
 @app.route('/chat/<user_public_id>', methods=['DELETE'])

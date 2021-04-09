@@ -8,6 +8,7 @@ from urllib.parse import quote_plus
 drivers = [item for item in pyodbc.drivers()]
 driver = drivers[-1]
 
+# "+driver+"
 
 odbc_str = "DRIVER={"+driver+"};SERVER=pikaia.database.windows.net;DATABASE=pikaia;UID=pikaia;PWD=Helloadmin123;"
 connect_str = 'mssql+pyodbc:///?odbc_connect=' + quote_plus(odbc_str)

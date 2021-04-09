@@ -13,7 +13,8 @@ def add_music(current_user):
 
     try:
         data = request.get_json()
-        new_song = Songs(song_name=data['song_name'], song_link=data['song_link'], song_author=data['song_author'], song_cover=data['song_cover'])
+        new_song = Songs(song_name=data['song_name'], song_link=data['song_link'], song_author=data['song_author'],
+                         song_cover=data['song_cover'])
         db.session.add(new_song)
         db.session.commit()
     except:
@@ -39,7 +40,6 @@ def user_create_song_rating(current_user):
         return jsonify({'message': 'This delete route is not for Admin users user route /chat/[user_id]'})
 
     data = request.get_json()
-
     new_rating = Ratings(song_id=data['song_id'], user_id=current_user.id, ratings=data['rating'])
     db.session.add(new_rating)
     db.session.commit()
