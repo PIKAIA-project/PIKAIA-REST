@@ -9,7 +9,7 @@ products:
 
 ---
 Build: Latest
-Status: [![Build Status](https://dev.azure.com/CS2019678/PIKAIA-REST/_apis/build/status/PIKAIA-project.PIKAIA-REST?branchName=main)](https://dev.azure.com/CS2019678/PIKAIA-REST/_build/latest?definitionId=23&branchName=main)
+[![Build Status](https://dev.azure.com/CS2019678/PIKAIA-REST/_apis/build/status/PIKAIA-project.PIKAIA-REST?branchName=main)](https://dev.azure.com/CS2019678/PIKAIA-REST/_build/latest?definitionId=23&branchName=main)
 ---
 
 # PROJECT-PIKAIA 
