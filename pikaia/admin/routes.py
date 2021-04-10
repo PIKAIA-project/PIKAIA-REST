@@ -25,7 +25,7 @@ def create_admin(current_user):
     db.session.add(new_admin)
     db.session.commit()
 
-    return jsonify({'message': 'New admin created!'})
+    return jsonify({'message': 'New admin created!'}), 200
 
 
 @app.route('/create-user', methods=['POST'])
@@ -57,7 +57,7 @@ def get_all_users(current_user):
         user_data = {'public_id': user.public_id, 'name': user.name, 'password': user.password, 'admin': user.admin}
         output.append(user_data)
 
-    return jsonify({'users': output})
+    return jsonify({'users': output}), 200
 
 
 # get one user
@@ -77,7 +77,7 @@ def get_one_user(current_user, public_id):
     # if user found
     user_data = {'public_id': user.public_id, 'name': user.name, 'password': user.password, 'admin': user.admin}
 
-    return jsonify({'user': user_data})
+    return jsonify({'user': user_data}), 200
 
 
 # create user
@@ -96,7 +96,7 @@ def create_user(current_user):
 
     db.session.add(new_user)
     db.session.commit()
-    return jsonify({'message': 'New user created!'})
+    return jsonify({'message': 'New user created!'}), 200
 
 
 # promote user to an admin
@@ -115,7 +115,7 @@ def promote_user(current_user, public_id):
     # user found
     user.admin = True
     db.session.commit()
-    return jsonify({'message': 'The user has been promoted!'})
+    return jsonify({'message': 'The user has been promoted!'}), 200
 
 
 # delete user
@@ -134,4 +134,4 @@ def delete_user(current_user, public_id):
     # user found
     db.session.delete(user)
     db.session.commit()
-    return {'message': 'user has been deleted! '}
+    return {'message': 'user has been deleted! '}, 200

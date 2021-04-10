@@ -1,7 +1,12 @@
+from datetime import datetime, timedelta
+
+from sqlalchemy import func
+
 from pikaia import app, db
 from pikaia.emotion_analysis import preProcessEmotionModel
 from pikaia.token import token_required
 from pikaia.models.models import Emotion
+from pikaia.models.models import Chat
 from flask import request, jsonify
 
 import uuid
@@ -27,7 +32,7 @@ def get_all_chat_emotions(current_user):
         emotion_data = {'id': emotion.id, 'public_id': emotion.public_id, 'user_Input': emotion.user_input,
                         'user_emotion': emotion.user_emotion}
         output.append(emotion_data)
-    return jsonify({'emotions': output})
+    return jsonify({'emotions': output}), 200
 
 
 @app.route('/emotion', methods=['POST'])
@@ -74,4 +79,17 @@ def user_delete_all_emotions(current_user):
         return jsonify({'message': 'No emotions to delete!'})
 
     db.session.commit()
-    return jsonify({'message': 'all emotions were successfully deleted'})
+    return jsonify({'message': 'all emotions were successfully deleted'}), 200
+
+
+@app.route('/emotion_count', methods=['GET'])
+@token_required
+def get_emotion_count(current_user):
+    if current_user.admin:
+        return jsonify({'message': 'Admin users cannot read user chat conversations!'})
+
+    # Getting the total emotion count
+    chartData = Chat.query.with_entities(Chat.user_emotion, func.count(Chat.user_emotion)).group_by(
+        Chat.user_emotion).all()
+
+    return jsonify({'emotion_count': chartData}), 200
