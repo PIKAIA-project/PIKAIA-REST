@@ -1,9 +1,11 @@
+from datetime import timedelta, datetime, date
+
 from sqlalchemy import func
 
 from pikaia import app, db
 from pikaia.token import token_required
 from pikaia.models.models import Chat, User
-from flask import request, jsonify
+from flask import request, jsonify, session
 from pikaia.emotion_analysis import preProcessEmotionModel
 import uuid
 import requests
@@ -11,6 +13,7 @@ import numpy as np
 
 # class Name on Emotions
 class_names = ['joy', 'fear', 'anger', 'sadness', 'neutral']
+
 
 # TODO: add validation and error handling code
 # json request body structure
@@ -66,13 +69,8 @@ def get_all_chat_conversations(current_user):
 
     conversations = Chat.query.filter_by(user_id=current_user.id).all()
 
-    # Getting the total emotion count
-    emotionData = Chat.query.with_entities(Chat.user_emotion, func.count(Chat.user_emotion)).group_by(
-        Chat.user_emotion).all()
-
     # an array to hold all the dictionaries
     output = []
-    emotionOutput = [emotionData]
     # inserting each to-do into it's own dictionary
     for conversation in conversations:
         conversation_data = {'public_id': conversation.public_id, 'user_sentence': conversation.user_sentence,
@@ -80,7 +78,7 @@ def get_all_chat_conversations(current_user):
                              'user_emotion': conversation.user_emotion, 'date_time': conversation.date_time}
         output.append(conversation_data)
 
-    return jsonify({'conversations': output, 'emotion_count': emotionOutput})
+    return jsonify({'conversations': output}), 200
 
 
 @app.route('/chat/<user_public_id>', methods=['DELETE'])
@@ -136,3 +134,57 @@ def user_delete_all_chat_conversations(current_user):
     db.session.commit()
     return jsonify({'message': 'all conversations successfully deleted'})
 
+
+@app.route('/chart_days/<days>', methods=['GET'])
+@token_required
+def get_all_chart_days(current_user, days):
+    current_time = datetime.now().utcnow()
+
+    if current_user.admin:
+        return jsonify({'message': 'Admin users cannot read user chat conversations!'})
+
+    last_week = current_time - timedelta(days=int(days))
+
+    chart_days = Chat.query.filter(
+        Chat.date_time > last_week).all()
+
+    # an array to hold all the dictionaries
+    output = []
+
+    for chartData in chart_days:
+        conversation_data = {'public_id': chartData.public_id, 'user_sentence': chartData.user_sentence,
+                             'chatbot_sentence': chartData.chatbot_sentence,
+                             'user_emotion': chartData.user_emotion, 'date_time': chartData.date_time}
+        output.append(conversation_data)
+
+    return jsonify({'chart_daily': output})
+
+
+@app.route('/chart_hours/<hours>', methods=['GET'])
+@token_required
+def get_all_chart_hours(current_user, hours):
+    current_hour = datetime.now().utcnow()
+
+    if current_user.admin:
+        return jsonify({'message': 'Admin users cannot read user chat conversations!'})
+
+    last_week = current_hour - timedelta(hours=int(hours))
+    chart_hours = Chat.query.filter(
+        Chat.date_time > last_week).all()
+
+    # an array to hold all the dictionaries
+    output = []
+    # inserting each to-do into it's own dictionary
+
+    for chartData in chart_hours:
+        conversation_data = {'public_id': chartData.public_id, 'user_sentence': chartData.user_sentence,
+                             'chatbot_sentence': chartData.chatbot_sentence,
+                             'user_emotion': chartData.user_emotion, 'date_time': chartData.date_time}
+        output.append(conversation_data)
+
+    return jsonify({'chart_daily': output})
+
+    # start = date(year=2021, month=4, day=1)
+    # end = date(year=2021, month=4, day=10)
+    # chart_week = Chat.query.filter(Chat.date_time <= end).filter(Chat.date_time >= start)
+    # chart_week = Chat.query.filter(Chat.date_time <= current_time - timedelta(days=1))
