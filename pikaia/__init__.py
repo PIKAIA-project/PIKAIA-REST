@@ -33,3 +33,4 @@ from pikaia.music_recommender import routes
 from pikaia.user import routes
 from pikaia.quotes import routes
 from pikaia.veiws import views
+from pikaia.binaural import routes
