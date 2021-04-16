@@ -17,7 +17,6 @@ def login():
                              {'WWW-Authenticate': 'Basic realm="Login required!"'})
 
     # authentication info is passed in
-    # todo: username should be unique
     user = User.query.filter_by(name=auth.username).first()
 
     # no such user found
