@@ -20,6 +20,8 @@ driver = drivers[-1]
 # db = SQLAlchemy(app)
 
 # Local Database
+
+# Please Fucking Comment this out don't fucking push because of Azure
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pikaia.db'

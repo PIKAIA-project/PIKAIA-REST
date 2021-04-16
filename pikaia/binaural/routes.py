@@ -6,7 +6,7 @@ from flask import request, jsonify
 
 @app.route('/add-binaural', methods=['POST'])
 @token_required
-def add_music(current_user):
+def add_binaural(current_user):
     # allowing only admin user to perform an action
     if not current_user.admin:
         return jsonify({'message': 'You do not have the permission to perform that function!'})
@@ -27,7 +27,7 @@ def add_music(current_user):
 
 @app.route('/binaural-<type>', methods=['GET'])
 @token_required
-def add_music(current_user, type):
+def add_binaural_by_type(current_user, type):
     # admin users cannot use this route
     if current_user.admin:
         return jsonify({'message': 'This delete route is not for Admin users user route /chat/[user_id]'})
