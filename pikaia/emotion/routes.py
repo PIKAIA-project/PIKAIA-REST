@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from difflib import Match
 
 from sqlalchemy import func
 
@@ -93,3 +94,18 @@ def get_emotion_count(current_user):
         Chat.user_emotion).all()
 
     return jsonify({'emotion_count': chartData}), 200
+
+
+@app.route('/emotion_last', methods=['GET'])
+@token_required
+def get_last_emotion(current_user):
+    if current_user.admin:
+        return jsonify({'message': 'This delete route is not for Admin users user route /chat/[user_id]'})
+
+    # emotions = Emotion.query(Chat).order_by(Chat.id.desc()).first()
+
+
+    emotions = db.session.query(Chat.user_emotion).order_by(Chat.id.desc()).first()
+    print(emotions)
+    return jsonify({'last__emotion': emotions}), 200
+

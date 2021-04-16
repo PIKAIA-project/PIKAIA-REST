@@ -44,3 +44,10 @@ class Ratings(db.Model):
     song_id = db.Column(db.Integer(), db.ForeignKey('songs.id'))
     user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
     ratings = db.Column(db.Integer())
+
+
+class Binaural(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True)
+    data = db.Column(db.LargeBinary)
+    type = db.Column(db.String())
