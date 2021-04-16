@@ -24,6 +24,9 @@ def add_music(current_user):
                          song_cover=data['song_cover'])
         db.session.add(new_song)
         db.session.commit()
+        song_id = new_song.id
+
+
     except:
         return jsonify({'message': 'The song exists!'})
 
@@ -65,10 +68,12 @@ def recommend_user_song(current_user, user_id):
 
     user_data = []
     rating_columns = ["user id"]
+
     for user in user:
         user = [user.id]
         user_data.append(user)
 
+    song_data = 0
     for song in song:
         song_data = song.id
         rating_columns.append(song_data)
@@ -80,17 +85,26 @@ def recommend_user_song(current_user, user_id):
 
     data_url = 'ratings'
     ratings = read_csv(data_url, index_col=0)  # Index_col=0 skips the row numbers
+    ratings = ratings.fillna(0)  # Replaces NaN with 0
 
     user_rating = []
     for rating in ratings_data:
-        user_rating.append([rating.user_id, rating.song_id, rating.ratings])
+        if rating.song_id == 0:
+            user_rating.append(0)
+        else:
+            user_rating.append([rating.user_id, rating.song_id, rating.ratings])
 
-    print(user_rating)
+    song_ratings = []
+    k = 0
+    for i in range(len(user_rating)):
+        song_ratings.append(user_rating[i][2])
+        if len(song_ratings) == song_data:
+            for j in range(song_data):
+                if len(song_ratings) == song_data:
+                    k += 1
+                    ratings.loc[k] = song_ratings
+                song_ratings.pop(0)
 
-    for i in range(len(user_data)):
-        ratings.loc[i + 1] = [1, 5, 3]  # Test data
-
-    ratings = ratings.fillna(0)  # Replaces NaN with 0
     print(ratings)
 
     def distance(person1, person2):
