@@ -19,7 +19,7 @@ def add_music(current_user):
 
     try:
         data = request.get_json()
-        new_song = Songs(song_user_id=data['song_user_id'], song_link=data['song_link'],
+        new_song = Songs(song_name=data['song_name'], song_link=data['song_link'],
                          song_author=data['song_author'],
                          song_cover=data['song_cover'])
         db.session.add(new_song)
@@ -127,3 +127,38 @@ def recommend_user_song(current_user, user_id):
         return closest_person
 
     return jsonify({'similar to': most_similar_to(int(user_id))}), 200
+
+
+@app.route('/song/<id>', methods=['DELETE'])
+@token_required
+def delete_song(current_user, id):
+    # allowing only admin user to perform an action
+    if not current_user.admin:
+        return jsonify({'message': 'Cannot perform that function!'})
+
+    songs = Songs.query.filter_by(id=id).first()
+    # no user found
+    if not songs:
+        return jsonify({'message': 'No song found!'})
+
+    # user found
+    db.session.delete(songs)
+    db.session.commit()
+    return {'message': 'song has been deleted! '}, 200
+
+
+@app.route('/all-songs', methods=['GET'])
+@token_required
+def get_all_songs(current_user):
+    # allowing only admin user to perform an action
+    if not current_user.admin:
+        return jsonify({'message': 'Cannot perform that function!'})
+
+    # query users table
+    songs = Songs.query.all()
+    output = []
+    for song in songs:
+        song_data = {'id': song.id, 'name': song.name}
+        output.append(song_data)
+
+    return jsonify({'songs': output}), 200
