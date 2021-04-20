@@ -3,6 +3,10 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from urllib.parse import quote_plus
 
+# to run the project locally
+# $ set FLASK_APP=run.ph
+# $ flask run
+
 # Using pyodbc driver to connect to the cloud database
 drivers = [item for item in pyodbc.drivers()]
 driver = drivers[-1]
