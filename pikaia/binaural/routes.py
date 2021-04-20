@@ -15,7 +15,7 @@ def add_binaural(current_user):
         data = request.get_json()
         new_binaural = Binaural(binaural_name=data['binaural_name'], binaural_link=data['binaural_link'],
                                 binaural_author=data['binaural_author'],
-                                binaural_cover=data['binaural_cover'], type=data['type'])
+                                binaural_cover=data['binaural_cover'], binaural_type=data['binaural_type'])
         db.session.add(new_binaural)
         db.session.commit()
 

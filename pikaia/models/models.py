@@ -47,8 +47,9 @@ class Ratings(db.Model):
 
 
 class Binaural(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer(), primary_key=True)
     binaural_name = db.Column(db.String(50))
     binaural_link = db.Column(db.String(1000))
     binaural_author = db.Column(db.String(15))
-    type = db.Column(db.String())
+    binaural_cover = db.Column(db.String(15))
+    binaural_type = db.Column(db.String(50))
