@@ -35,7 +35,8 @@ def get_beats(current_user, beat_type):
     try:
         for beat in beats:
             if beat.binaural_type == beat_type:
-                beat_data = {'id': beat.id, 'name': beat.binaural_name, 'link': beat.binaural_link, 'type': beat.type}
+                beat_data = {'id': beat.id, 'name': beat.binaural_name, 'link': beat.binaural_link,
+                             'type': beat.binaural_type}
                 beat_list.append(beat_data)
     except:
         return jsonify({'message': 'No beat type of that requested'})
