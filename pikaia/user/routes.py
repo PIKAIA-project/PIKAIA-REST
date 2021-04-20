@@ -46,6 +46,7 @@ def login():
     return make_response('Could not verify - incorrect password', 401,
                          {'WWW-Authenticate': 'Basic realm="Login required!"'})
 
+
 @app.route('/get-current-user-info', methods=['GET'])
 @token_required
 def get_current_user_info(current_user):
@@ -57,8 +58,7 @@ def get_current_user_info(current_user):
         return jsonify({'message': 'No user found'})
 
     # user found
-    user_data = user_data = {'public_id': user.public_id, 'name': user.name, 'password': user.password, 'admin': user.admin}
+    user_data = user_data = {'public_id': user.public_id, 'name': user.name, 'password': user.password,
+                             'admin': user.admin}
 
     return jsonify({'user': user_data}), 200
-
-
