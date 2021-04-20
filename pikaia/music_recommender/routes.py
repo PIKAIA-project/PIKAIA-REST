@@ -52,14 +52,23 @@ def user_create_song_rating(current_user):
 
     data = request.get_json()
     new_rating = Ratings(song_id=data['song_id'], user_id=current_user.id, ratings=data['rating'])
-    for rating in Ratings.query.all():
-        if rating.song_id == new_rating.song_id and rating.user_id == new_rating.user_id:
-            rating.query().update(new_rating.ratings)
-            return jsonify({'message': 'Rating added'})
-    db.session.add(new_rating)
-    db.session.commit()
-    return jsonify({'message': 'Rating added'})
 
+    rating = Ratings.query.filter_by(song_id=new_rating.song_id).first()
+    try:
+        if rating and Ratings.query.filter_by(user_id=new_rating.user_id).first():
+            # user.no_of_logins = User.no_of_logins + 1
+            rating.ratings = new_rating.ratings
+            db.session.commit()
+            print(rating)
+            return jsonify({'message': 'Rating added'})
+        else:
+            db.session.add(new_rating)
+            db.session.commit()
+            return jsonify({'message': 'Rating added'})
+
+    except Exception as e:
+        print(e)
+        return jsonify({'message': 'Rating already exists!'})
 
 @app.route('/recommend-music', methods=['PUT'])
 @token_required
