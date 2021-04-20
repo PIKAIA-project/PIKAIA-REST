@@ -1,4 +1,4 @@
-from pikaia import app
+from pikaia import app, db
 from pikaia.models.models import User
 from flask import request, jsonify, make_response
 from werkzeug.security import check_password_hash
@@ -62,3 +62,24 @@ def get_current_user_info(current_user):
                              'admin': user.admin}
 
     return jsonify({'user': user_data}), 200
+
+
+@app.route('/delete-self', methods=['DELETE'])
+@token_required
+def delete_user_self(current_user):
+    data = request.get_json()
+
+    user = User.query.filter_by(name=data['username']).first()
+
+    # no user found
+    if not user:
+        return jsonify({'message': 'No such user'})
+
+    # check for password - matches
+    if check_password_hash(user.password, data['password']):
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({'message': 'user self successfully deleted!'}), 200
+    # check for password - no match
+    return jsonify({'message': 'failed to delete self - invalid password'}), 200
+
