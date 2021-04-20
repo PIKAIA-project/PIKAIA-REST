@@ -55,6 +55,7 @@ def user_create_song_rating(current_user):
     for rating in Ratings.query.all():
         if rating.song_id == new_rating.song_id and rating.user_id == new_rating.user_id:
             rating.query().update(new_rating.ratings)
+            return jsonify({'message': 'Rating added'})
     db.session.add(new_rating)
     db.session.commit()
     return jsonify({'message': 'Rating added'})
