@@ -5,9 +5,8 @@ from pikaia.token import token_required
 from pikaia.models.models import Songs, Ratings, User
 from flask import request, jsonify
 
-from pandas import read_csv, DataFrame
-from math import sqrt
-from scipy.spatial.distance import euclidean, cosine
+from pandas import read_csv
+from scipy.spatial.distance import euclidean
 
 
 @app.route('/add-music', methods=['POST'])
@@ -24,8 +23,10 @@ def add_music(current_user):
                          song_cover=data['song_cover'])
         db.session.add(new_song)
         db.session.commit()
-        song_id = new_song.id
-
+        for user in User.query.all():
+            new_rating = Ratings(song_id=new_song.id, user_id=user.id, ratings=0)
+            db.session.add(new_rating)
+            db.session.commit()
 
     except:
         return jsonify({'message': 'The song exists!'})
@@ -42,7 +43,7 @@ def add_music(current_user):
 #     return jsonify({'musics': "Terminal"})
 
 
-@app.route('/rating', methods=['POST'])
+@app.route('/rating', methods=['PUT'])
 @token_required
 def user_create_song_rating(current_user):
     # admin users cannot use this route
@@ -56,9 +57,11 @@ def user_create_song_rating(current_user):
     return jsonify({'message': 'Rating added'})
 
 
-@app.route('/recommend-music/<user_id>', methods=['GET'])
+@app.route('/recommend-music', methods=['PUT'])
 @token_required
-def recommend_user_song(current_user, user_id):
+def recommend_user_song(current_user):
+    user_id = current_user.id
+
     ratings_data = Ratings.query.all()
     user = User.query.all()
     song = Songs.query.all()
@@ -126,7 +129,16 @@ def recommend_user_song(current_user, user_id):
                 closest_person = other_person.Index
         return closest_person
 
-    return jsonify({'similar to': most_similar_to(int(user_id))}), 200
+    similar_id = most_similar_to(int(user_id))
+
+    output = []
+    similar_rating = Ratings.query.filter_by(id=similar_id).all()
+    for rating in similar_rating:
+        for song in Songs.query.filter_by(song_id=rating.song_id):
+            similar_song = {'song_id': song.id, 'song_name': song.song_name, 'song_link': song.song_link}
+            output.append(similar_song)
+
+    return jsonify({'similar': output}), 200
 
 
 @app.route('/song/<id>', methods=['DELETE'])
