@@ -4,33 +4,25 @@ from pikaia.models.models import Binaural
 from flask import request, jsonify, render_template, Response
 
 
-@app.route('/binaural')
-@token_required
-def binaural(current_user):
-    if not current_user.admin:
-        return jsonify({'message': 'Cannot perform that function!'})
-
-    return render_template('add_beats.html')
-
-
 @app.route('/add-binaural', methods=['POST'])
 @token_required
 def add_binaural(current_user):
     # allowing only admin user to perform an action
     if not current_user.admin:
-        return jsonify({'message': 'Cannot perform that function!'})
+        return jsonify({'message': 'You do not have the permission to perform that function!'})
 
     try:
-        file = request.files['inputFile']
-        file_name = request.form['inputFileName']
-        file_type = request.form['inputFileType']
-        new_beat = Binaural(name=file_name, data=file.read(), type=file_type)
-        db.session.add(new_beat)
+        data = request.get_json()
+        new_binaural = Binaural(binaural_name=data['binaural_name'], binaural_link=data['binaural_link'],
+                                binaural_author=data['binaural_author'],
+                                binaural_cover=data['binaural_cover'], type=data['type'])
+        db.session.add(new_binaural)
         db.session.commit()
-    except:
-        return jsonify({'message': 'Oops! something went wrong'})
 
-    return jsonify({'message': 'New music added!'})
+    except:
+        return jsonify({'message': 'The song exists!'})
+
+    return jsonify({'message': 'New beat added!'})
 
 
 @app.route('/binaural/<beat_type>', methods=['GET'])
@@ -43,11 +35,11 @@ def get_beats(current_user, beat_type):
     try:
         for beat in beats:
             if beat.type == beat_type:
-                beat_data = beat.data
+                beat_data = {'id': beat.id, 'name': beat.binaural_name, 'link': beat.binaural_link, 'type': beat.type}
                 beat_list.append(beat_data)
     except:
         return jsonify({'message': 'No beat type of that requested'})
-    return Response(beat_list), 200
+    return jsonify({'beat': beat_list}), 200
 
 
 # delete beat
@@ -80,7 +72,7 @@ def get_all_beats(current_user):
     beats = Binaural.query.all()
     output = []
     for beat in beats:
-        beat_data = {'id': beat.id, 'name': beat.name}
+        beat_data = {'id': beat.id, 'name': beat.binaural_name, 'link': beat.binaural_link, 'type': beat.type}
         output.append(beat_data)
 
-    return jsonify({'users': output}), 200
+    return jsonify({'beats': output}), 200

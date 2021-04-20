@@ -158,7 +158,7 @@ def get_all_songs(current_user):
     songs = Songs.query.all()
     output = []
     for song in songs:
-        song_data = {'id': song.id, 'name': song.name}
+        song_data = {'id': song.id, 'name': song.song_name, 'link': song.song_link}
         output.append(song_data)
 
     return jsonify({'songs': output}), 200
