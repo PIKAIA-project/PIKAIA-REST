@@ -614,7 +614,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Thoshitha\",\r\n    \"password\": \"12345\"\r\n}",
+					"raw": "{\r\n    \"name\": \"admin4\",\r\n    \"password\": \"12345\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -765,7 +765,7 @@
 				"header": [
 					{
 						"key": "x-access-token",
-						"value": "{{admin token}}",
+						"value": "{{user token}}",
 						"type": "text"
 					},
 					{
@@ -804,6 +804,32 @@
 					],
 					"path": [
 						"get-current-user-info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin - Create New User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"user4\",\r\n    \"password\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/create-user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"create-user"
 					]
 				}
 			},
