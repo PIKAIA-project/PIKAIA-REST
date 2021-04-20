@@ -103,7 +103,6 @@ def get_last_emotion(current_user):
         return jsonify({'message': 'Admin users cannot user this route'})
 
     # emotions = Emotion.query(Chat).order_by(Chat.id.desc()).first()
-
     emotions = db.session.query(Chat.user_emotion).order_by(Chat.id.desc()).first()
-    print(emotions)
+    # print(emotions)
     return jsonify({'last__emotion': emotions}), 200
