@@ -72,7 +72,7 @@ def get_all_beats(current_user):
     beats = Binaural.query.all()
     output = []
     for beat in beats:
-        beat_data = {'id': beat.id, 'name': beat.binaural_name, 'link': beat.binaural_link, 'type': beat.type}
+        beat_data = {'id': beat.id, 'name': beat.binaural_name, 'link': beat.binaural_link, 'type': beat.binaural_type}
         output.append(beat_data)
 
     return jsonify({'beats': output}), 200
