@@ -759,13 +759,13 @@
 			"response": []
 		},
 		{
-			"name": "Get Last Record Emotion",
+			"name": "User - Last Record Emotion",
 			"request": {
 				"method": "GET",
 				"header": [
 					{
 						"key": "x-access-token",
-						"value": "{{user token}}",
+						"value": "{{admin token}}",
 						"type": "text"
 					},
 					{
@@ -790,7 +790,13 @@
 			"name": "Any - Get current user info",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{any user token}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "{{url}}/get-current-user-info",
 					"host": [
@@ -831,11 +837,11 @@
 		},
 		{
 			"key": "user token",
-			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiJlNTRmNjE2Ny1hMmM2LTRkM2MtYmU5OC1jNmQ4NzU0YjNhNGIiLCJleHAiOjE2MTcyNzQ0MjV9.jp4XpmBIQjttdXKq652uZfu5OQPdTk_qPHmnrHTALaE"
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiJlNTRmNjE2Ny1hMmM2LTRkM2MtYmU5OC1jNmQ4NzU0YjNhNGIiLCJleHAiOjE2MTg5MDE0ODZ9.9IHZOaZqIfniUS9IF1DivNw6AD8qg7P5bStKk6t3KxA"
 		},
 		{
 			"key": "admin token",
-			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIwODUzYTdmMS0wMjJmLTQ4MTEtODdlZi0yOTFiZmNiOWVjNTUiLCJleHAiOjE2MTcxNzY5MDV9.R-jgqiixLgDGMplsu9RaHjLGIjWxxyfWwcR_IQC4Ajw"
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIwODUzYTdmMS0wMjJmLTQ4MTEtODdlZi0yOTFiZmNiOWVjNTUiLCJleHAiOjE2MTg5MDE1OTd9.PqG6-fxF7ob73ONxNsrZ2Lq2tbHI1YjepRg5Rwg85Nk"
 		},
 		{
 			"key": "url",
