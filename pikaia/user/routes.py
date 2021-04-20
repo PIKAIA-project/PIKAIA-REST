@@ -6,6 +6,8 @@ from werkzeug.security import check_password_hash
 import jwt
 import datetime
 
+from pikaia.token import token_required
+
 
 @app.route('/login')
 def login():
@@ -43,5 +45,20 @@ def login():
     # if password doesn't match
     return make_response('Could not verify - incorrect password', 401,
                          {'WWW-Authenticate': 'Basic realm="Login required!"'})
+
+@app.route('/get-current-user-info', methods=['GET'])
+@token_required
+def get_current_user_info(current_user):
+    # both user types can perform this action
+    # query user table
+    user = User.query.filter_by(public_id=current_user.public_id).first()
+    # user info was not found
+    if not user:
+        return jsonify({'message': 'No user found'})
+
+    # user found
+    user_data = user_data = {'public_id': user.public_id, 'name': user.name, 'password': user.password, 'admin': user.admin}
+
+    return jsonify({'user': user_data}), 200
 
 
