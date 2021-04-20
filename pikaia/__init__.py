@@ -3,6 +3,10 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from urllib.parse import quote_plus
 
+# to run the project locally
+# $ set FLASK_APP=run.ph
+# $ flask run
+
 # Using pyodbc driver to connect to the cloud database
 drivers = [item for item in pyodbc.drivers()]
 driver = drivers[-1]
@@ -18,6 +22,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = connect_str
 app.config['SECRET_KEY'] = 'ec9439cfc6c796ae2029594d'
 db = SQLAlchemy(app)
+db.init_app(app)
 
 # Local Database
 

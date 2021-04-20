@@ -100,12 +100,9 @@ def get_emotion_count(current_user):
 @token_required
 def get_last_emotion(current_user):
     if current_user.admin:
-        return jsonify({'message': 'This delete route is not for Admin users user route /chat/[user_id]'})
+        return jsonify({'message': 'Admin users cannot user this route'})
 
     # emotions = Emotion.query(Chat).order_by(Chat.id.desc()).first()
-
-
     emotions = db.session.query(Chat.user_emotion).order_by(Chat.id.desc()).first()
-    print(emotions)
+    # print(emotions)
     return jsonify({'last__emotion': emotions}), 200
-
