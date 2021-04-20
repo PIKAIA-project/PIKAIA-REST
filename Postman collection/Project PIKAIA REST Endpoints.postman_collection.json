@@ -1,0 +1,853 @@
+{
+	"info": {
+		"_postman_id": "d50f127c-994b-4ccc-8918-f72ec6a6099d",
+		"name": "PIKAIA Backend Endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "(Vendor) Brain Shop Get Request",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://api.brainshop.ai/get?bid=155154&key=GaaTEjuT8pJv3n5L&uid=tempUser&msg=tell me a joke",
+					"protocol": "http",
+					"host": [
+						"api",
+						"brainshop",
+						"ai"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "bid",
+							"value": "155154"
+						},
+						{
+							"key": "key",
+							"value": "GaaTEjuT8pJv3n5L"
+						},
+						{
+							"key": "uid",
+							"value": "tempUser"
+						},
+						{
+							"key": "msg",
+							"value": "tell me a joke"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Home",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User-Login",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Shuhaib",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiI0ODNmZTAwMy1mZWE0LTQ3YTAtYjg0MC04ZDc1Nzc0YjY3ZGIiLCJleHAiOjE2MTUyMzQyODR9.Q5a5ohEOn4MX6kRECozPQLT4_iCbHHvwZyZyWsWIFmY",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "True",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User - Get Chat Sequential",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{user token}}",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/chat/sequential/0",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"chat",
+						"sequential",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User - Get All Emotions",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{user token}}",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/emotions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"emotions"
+					],
+					"query": [
+						{
+							"key": "x-access-token",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User - Get Quotes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{user token}}",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/quotes",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"quotes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User - Get all Chat Conversations",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{user token}}",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/chat",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"chat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User - Chart daily",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{user token}}",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/chart_days/3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"chart_days",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User - Chart hourly",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{user token}}",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/chart_hours/20",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"chart_hours",
+						"20"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User-Get Emotion Count Chart",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{user token}}",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/emotion_count",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"emotion_count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User - Sign-In",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Shohan\",\r\n    \"password\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/create-user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"create-user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User - Emotion",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Thoshitha",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{user token}}",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userInput\" : \"My friend passed away\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/emotion",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"emotion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Chat Conversation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{user token}}",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userInput\": \"hi, I got graduated today\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/chat",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"chat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User - Delete all Chat Conversations",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{user token}}",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/chat",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"chat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User - Delete Emotion",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{user token}}",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/emotions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"emotions"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin - Login",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "Shehan",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin - Get all users",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Thoshitha",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{admin token}}",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/user?=",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin - Create New Admin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{admin token}}",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Thoshitha\",\r\n    \"password\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/admin",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin-Add Music",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{admin token}}",
+						"description": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIwODUzYTdmMS0wMjJmLTQ4MTEtODdlZi0yOTFiZmNiOWVjNTUiLCJleHAiOjE2MTczOTI5Mzl9.dzZstrXjeUru3jtPyn6MZSG9nw67f28APfhuIsF2Vdk",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"song_name\": \"Nightfall\",\r\n    \"song_link\": \"https://mp3.chillhop.com/serve.php/?mp3=9222\",\r\n    \"song_author\": \"Swørn\",\r\n    \"song_cover\":\"https://chillhop.com/wp-content/uploads/2020/07/ef95e219a44869318b7806e9f0f794a1f9c451e4-1024x1024.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/add-music",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"add-music"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin - Promote User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{admin token}}",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/user/64088c0e-eb77-4cc8-b88b-8a435bbba643",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"64088c0e-eb77-4cc8-b88b-8a435bbba643"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin - Delete all Chat Conversations",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{admin token}}",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/chat/483fe003-fea4-47a0-b840-8d75774b67db",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"chat",
+						"483fe003-fea4-47a0-b840-8d75774b67db"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin - Delete User",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{admin token}}",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/user/e8e86732-45e8-474b-b074-b0696725e883",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"e8e86732-45e8-474b-b074-b0696725e883"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Last Record Emotion",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{user token}}",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscription-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/emotion_last",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"emotion_last"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Any - Get current user info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/get-current-user-info",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"get-current-user-info"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "any user token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIwODUzYTdmMS0wMjJmLTQ4MTEtODdlZi0yOTFiZmNiOWVjNTUiLCJleHAiOjE2MTg5MDA3Nzl9.YspOESwCnYaR0W-6smhfVtUW_lGIYu5eYUBSTtISLPE"
+		},
+		{
+			"key": "user token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiJlNTRmNjE2Ny1hMmM2LTRkM2MtYmU5OC1jNmQ4NzU0YjNhNGIiLCJleHAiOjE2MTcyNzQ0MjV9.jp4XpmBIQjttdXKq652uZfu5OQPdTk_qPHmnrHTALaE"
+		},
+		{
+			"key": "admin token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIwODUzYTdmMS0wMjJmLTQ4MTEtODdlZi0yOTFiZmNiOWVjNTUiLCJleHAiOjE2MTcxNzY5MDV9.R-jgqiixLgDGMplsu9RaHjLGIjWxxyfWwcR_IQC4Ajw"
+		},
+		{
+			"key": "url",
+			"value": "http://127.0.0.1:5000"
+		},
+		{
+			"key": "pikaia",
+			"value": "http://127.0.0.1:5000"
+		},
+		{
+			"key": "subscription-key",
+			"value": "1a55d8e0ffa94fc7988a1fc24deb69b0"
+		}
+	]
+}
