@@ -104,8 +104,6 @@ def get_last_emotion(current_user):
 
     # emotions = Emotion.query(Chat).order_by(Chat.id.desc()).first()
 
-
     emotions = db.session.query(Chat.user_emotion).order_by(Chat.id.desc()).first()
     print(emotions)
     return jsonify({'last__emotion': emotions}), 200
-
