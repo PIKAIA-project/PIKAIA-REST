@@ -34,7 +34,7 @@ def get_beats(current_user, beat_type):
     beat_list = []
     try:
         for beat in beats:
-            if beat.type == beat_type:
+            if beat.binaural_type == beat_type:
                 beat_data = {'id': beat.id, 'name': beat.binaural_name, 'link': beat.binaural_link, 'type': beat.type}
                 beat_list.append(beat_data)
     except:
