@@ -41,7 +41,10 @@ def login():
         # to decode jwt token  # decode token data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
         # not-working:   # return jsonify({'token': token.decode('UTF-8')})
         # for reference: # return jsonify({'token': data}) # got this from youtube comment - Rafael Gramoschi
-        return jsonify({'token': token})
+        return jsonify({'token': token, "user": {
+            "userId": user.public_id,
+            "isAdmin": user.admin
+        }})
     # if password doesn't match
     return make_response('Could not verify - incorrect password', 401,
                          {'WWW-Authenticate': 'Basic realm="Login required!"'})
