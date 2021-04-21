@@ -84,6 +84,10 @@ def get_all_chat_conversations(current_user):
 @app.route('/chat/sequential/<page_number>', methods=['GET'])
 @token_required
 def get_chat_sequential(current_user, page_number):
+    # How access endpoint:
+    # {{url}}/chat/sequential/0 will give first 20 messages
+    # {{url}}/chat/sequential/1 will give second 20... and so on
+
     # admin users cannot have chats
     if current_user.admin:
         return jsonify({'message': 'Admin users cannot read user chat conversations!'})
@@ -92,7 +96,7 @@ def get_chat_sequential(current_user, page_number):
         page_number = int(page_number)
     except:
         return jsonify({'message': "invalid page argument"}), 200
-    messages_per_request = 10
+    messages_per_request = 20
     page_offset = page_number * messages_per_request
 
     conversations = Chat.query.filter_by(user_id=current_user.id).order_by(Chat.id.asc()).offset(page_offset).limit(
