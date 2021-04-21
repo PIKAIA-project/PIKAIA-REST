@@ -81,6 +81,35 @@ def get_all_chat_conversations(current_user):
     return jsonify({'conversations': output}), 200
 
 
+@app.route('/chat/sequential/<page_number>', methods=['GET'])
+@token_required
+def get_chat_sequential(current_user, page_number):
+    # admin users cannot have chats
+    if current_user.admin:
+        return jsonify({'message': 'Admin users cannot read user chat conversations!'})
+
+    try:
+        page_number = int(page_number)
+    except:
+        return jsonify({'message': "invalid page argument"}), 200
+    messages_per_request = 10
+    page_offset = page_number * messages_per_request
+
+    conversations = Chat.query.filter_by(user_id=current_user.id).order_by(Chat.id.asc()).offset(page_offset).limit(
+        messages_per_request).all()
+
+    # an array to hold all the dictionaries
+    sequence = []
+    # inserting each chat into it's own dictionary
+    for conversation in conversations:
+        conversation_data = {'public_id': conversation.public_id, 'user_sentence': conversation.user_sentence,
+                             'chatbot_sentence': conversation.chatbot_sentence,
+                             'user_emotion': conversation.user_emotion, 'date_time': conversation.date_time}
+        sequence.append(conversation_data)
+
+    return jsonify({'conversations': sequence}), 200
+
+
 @app.route('/chat/<user_public_id>', methods=['DELETE'])
 @token_required
 def admin_delete_user_chat_conversations(current_user, user_public_id):
