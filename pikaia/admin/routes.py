@@ -2,7 +2,7 @@ from sqlite3 import IntegrityError
 
 from pikaia import app, db
 from pikaia.token import token_required
-from pikaia.models.models import User
+from pikaia.models.models import User, Songs, Ratings
 from flask import request, jsonify
 from werkzeug.security import generate_password_hash
 import uuid
@@ -40,6 +40,12 @@ def create_newUser():
     new_user = User(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=False)
     db.session.add(new_user)
     db.session.commit()
+
+    for song in Songs.query.all():
+        new_rating = Ratings(song_id=song.id, user_id=new_user.id, ratings=0)
+        db.session.add(new_rating)
+        db.session.commit()
+
     return jsonify({'message': 'New User created!'}), 200
 
 

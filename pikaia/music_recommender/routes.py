@@ -53,13 +53,12 @@ def user_create_song_rating(current_user):
     data = request.get_json()
     new_rating = Ratings(song_id=data['song_id'], user_id=current_user.id, ratings=data['rating'])
 
-    rating = Ratings.query.filter_by(song_id=new_rating.song_id).first()
+    rating_filter_by_song_id = Ratings.query.filter_by(song_id=new_rating.song_id).first()
+    rating_filter_by_user_id = Ratings.query.filter_by(user_id=new_rating.user_id).first()
     try:
-        if rating and Ratings.query.filter_by(user_id=new_rating.user_id).first():
-            # user.no_of_logins = User.no_of_logins + 1
-            rating.ratings = new_rating.ratings
+        if rating_filter_by_song_id and rating_filter_by_user_id:
+            rating_filter_by_song_id.ratings = new_rating.ratings
             db.session.commit()
-            print(rating)
             return jsonify({'message': 'Rating added'})
         else:
             db.session.add(new_rating)
@@ -69,6 +68,7 @@ def user_create_song_rating(current_user):
     except Exception as e:
         print(e)
         return jsonify({'message': 'Rating already exists!'})
+
 
 @app.route('/recommend-music', methods=['PUT'])
 @token_required
@@ -147,9 +147,12 @@ def recommend_user_song(current_user):
     output = []
     similar_rating = Ratings.query.filter_by(id=similar_id).all()
     for rating in similar_rating:
-        for song in Songs.query.filter_by(song_id=rating.song_id):
+        for song in Songs.query.filter_by(id=rating.song_id):
             similar_song = {'song_id': song.id, 'song_name': song.song_name, 'song_link': song.song_link}
             output.append(similar_song)
+
+    if len(output) == 0:
+        return jsonify({'message': 'no similar taste!'})
 
     return jsonify({'similar': output}), 200
 
